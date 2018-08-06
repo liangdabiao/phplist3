@@ -72,8 +72,9 @@ echo $selectOtherlist->show();
 if ($total) {
     echo PageLinkButton('listbounces&amp;type=dl&amp;id='.$listid, 'Download emails','','btn-primary pull-right btn-lg');
 }
+$totalFormatted = number_format($total);
 
-echo '<p>'.s('%d bounces to list %s', $total, listName($listid)).'</p>';
+echo '<p>'.$totalFormatted.s(' bounces to list %s', listName($listid)).'</p>';
 
 $start = empty($_GET['start']) ? 0 : sprintf('%d', $_GET['start']);
 if ($total > $numpp && !$download) {
