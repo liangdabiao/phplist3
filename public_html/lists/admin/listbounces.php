@@ -74,7 +74,7 @@ if ($total) {
 }
 $totalFormatted = number_format($total);
 
-echo '<p>'.$totalFormatted.s(' bounces to list %s', listName($listid)).'</p>';
+echo '<p>'.$totalFormatted.' '.s('bounces to list').' \''.listName($listid).'\'</p>';
 
 $start = empty($_GET['start']) ? 0 : sprintf('%d', $_GET['start']);
 if ($total > $numpp && !$download) {
@@ -106,8 +106,14 @@ while ($row = Sql_Fetch_Array($req)) {
         } else {
             $ls->addElement($row['userid'], PageUrl2('user&amp;id='.$row['userid']));
             $ls->addColumn($row['userid'], s('Subscriber address'), PageLink2('user&id='.$row['userid'], $userdata['email']));
-            $ls->addColumn($row['userid'], s('Total bounces'),
-                PageLink2('user&id='.$row['userid'], $row['numbounces']));
+            $ls->addColumn(
+                $row['userid']
+                , s('Total bounces')
+                , PageLink2( 
+                    'user&id='.$row['userid']
+                    , number_format( $row['numbounces'] ) 
+                ) 
+            );
         }
     }
 }
